@@ -64,8 +64,13 @@ async def wait_for_time_to_start(pool, tello: str) -> None:
 
         if time_to_start != current_time:
             time.sleep(1)
-            
-            print(Fore.RED + f"Waiting for {time_to_start} to run code ({(dt_time_to_start-(datetime.now())).seconds})s left)")
+            if (dt_time_to_start-(datetime.now())).seconds > 60:
+                print(f"TIME HAS ALREADY SURPASSED.\nCURRENT TIME: {datetime.now()}\n SET TIME: {dt_time_to_start}")
+                await asyncio.sleep(1)
+                await wait_for_time_to_start(pool, tello)
+             
+            else:
+             print(Fore.RED + f"Waiting for {time_to_start} to run code ({(dt_time_to_start-(datetime.now())).seconds})s left)")
         else:
             print("Starting Program")
             return
