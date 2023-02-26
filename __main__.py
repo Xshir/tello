@@ -1,12 +1,13 @@
 import asyncio
-from functions import retrieve_tello_instructions, wait_for_time_to_start
+from functions import retrieve_tello_instructions, wait_for_time_to_start, start_db
+from credentials import tello
 
 
 async def main_program_loop():
-    
-    config = "tello0"
-    await wait_for_time_to_start()
-    list_ = await retrieve_tello_instructions(config)
+
+    pool = await start_db()
+    await wait_for_time_to_start(pool, tello)
+    list_ = await retrieve_tello_instructions(pool, tello)
     print(list_)
 
 
