@@ -51,7 +51,7 @@ async def wait_for_time_to_start(pool, tello: str) -> None:
                 time_to_start = element[0]
             elif element[0] == "NOT SET":
                 print("TIME TO START IS NOT SET. WAITING FOR A TIME TO BE SET.")
-                asyncio.sleep(1)
+                await asyncio.sleep(1)
                 await wait_for_time_to_start(pool, tello)
 
         
