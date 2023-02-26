@@ -58,8 +58,7 @@ async def wait_for_time_to_start(pool, tello: str) -> None:
 
     while True:
         current_time = (datetime.now()).strftime("%H:%M")
-        
-        dt_time_to_start = datetime.strptime(time_to_start, "%H:%M")
+        dt_time_to_start = datetime.strptime(f"{datetime.now().date().day} 0{datetime.now().date().month} {datetime.now().date().year} {time_to_start}", "%d %m %Y %H:%M")
       
 
         if time_to_start != current_time:
