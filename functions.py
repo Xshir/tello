@@ -3,6 +3,7 @@ import time
 from colorama import Fore, Style
 import asyncpg
 from credentials import db_creds
+import asyncio
 
 async def start_db():
     try:
@@ -48,6 +49,12 @@ async def wait_for_time_to_start(pool, tello: str) -> None:
         if element[0] is not None:
             if ":" in element[0]:
                 time_to_start = element[0]
+            elif element[0] == "NOT SET":
+                print("TIME TO START IS NOT SET. WAITING FOR A TIME TO BE SET.")
+                asyncio.sleep(1)
+                await wait_for_time_to_start(pool, tello)
+
+        
 
     while True:
         current_time = (datetime.now()).strftime("%H:%M")
